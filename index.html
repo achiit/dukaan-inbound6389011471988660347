@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ClassConnect</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ClassConnect — refreshed white classroom UI */
+:root{
+  color-scheme:light;
+  --bg:#ffffff;--soft:#f6f8fc;--line:#e8edf4;--ink:#172033;--muted:#778196;
+  --brand:#315efb;--ok:#15966b;--late:#dc5961;--sun:#e8a52b;
+  --head:'Outfit','Trebuchet MS',sans-serif;--body:'Figtree','Segoe UI',sans-serif;
+}
+:root[data-theme="dark"]{color-scheme:light}
+body{background:#f7f9fd;color:var(--ink);font:400 15px/1.55 var(--body);letter-spacing:.005em}
+h1,h2,h3{font-family:var(--head);font-weight:600;letter-spacing:-.035em}
+button,select,input,textarea{font:inherit}
+.wrap{min-height:100vh}
+.logo{font:600 1.25rem var(--head);gap:11px;color:#172033;letter-spacing:-.025em}
+.logo i{width:34px;height:34px;border:0;border-radius:11px;background:linear-gradient(145deg,#4774ff,#244ce2);box-shadow:0 6px 15px #315efb35}
+.logo i:after{width:11px;height:11px;background:white;border-radius:4px;transform:rotate(45deg)}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 12px 34px #26385c0a}
+.btn{border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px 16px;font-weight:600;cursor:pointer;transition:.18s ease}
+.btn:hover{border-color:#b9c8ff;color:var(--brand);transform:translateY(-1px)}
+.btn.main{background:var(--brand);color:#fff;border-color:var(--brand);box-shadow:0 7px 16px #315efb2b}
+.btn.main:hover{background:#244de0;border-color:#244de0;color:#fff}
+.btn.sm{padding:6px 11px;font-size:.82rem;border-radius:9px}
+input,select,textarea{border:1px solid #e3e8f1;border-radius:11px;background:#fff;padding:11px 13px;font-weight:400;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{border-color:#8da6ff;outline:0;box-shadow:0 0 0 3px #315efb14}
+label{gap:7px;font-size:.8rem;font-weight:600;color:#657087}
+.login{max-width:1160px;min-height:100vh;padding:44px 28px;grid-template-columns:1.08fr .92fr;gap:76px}
+.login>div:first-child{position:relative;align-self:stretch;display:flex;flex-direction:column;justify-content:center;min-height:560px;padding:42px;border-radius:28px;overflow:hidden;background:linear-gradient(145deg,#f0f4ff 0%,#f8fbff 55%,#eaf1ff 100%)}
+.login>div:first-child:after{content:"";display:block;width:100%;height:225px;margin-top:35px;border-radius:20px;background-image:linear-gradient(0deg,#172b5a18,#172b5a00),url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=85');background-size:cover;background-position:center}
+.login h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:600;line-height:1.08;letter-spacing:-.055em;margin:30px 0 16px;max-width:12ch;color:#17233f}
+.login p{color:#6c7890;max-width:38ch;font-size:1.02rem}
+.login .card{max-width:460px;width:100%;justify-self:center}
+.seg{gap:5px;padding:5px;background:#f4f6fb;border:0;border-radius:12px;margin-bottom:20px}
+.seg button{padding:9px 7px;border-radius:9px;font-size:.9rem}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--brand);box-shadow:0 2px 8px #17203312}
+.err{font-size:.86rem}
+.hint{color:#8993a6;font-size:.82rem}
+.shell{grid-template-columns:252px minmax(0,1fr);background:#fff}
+.side{background:#fff;border-right:1px solid var(--line);padding:27px 19px 22px;box-shadow:5px 0 24px #1e31500a}
+.nav{gap:6px;margin-top:42px}
+.nav button{padding:12px 14px;border-radius:11px;font-size:.92rem;transition:.15s}
+.nav button:hover{background:#f7f8fc;color:#27334c}
+.nav button[aria-pressed="true"]{background:#eef2ff;color:var(--brand);box-shadow:none;font-weight:600}
+.user{padding:16px 10px 4px;border-top:1px solid var(--line);font-size:.9rem}
+.user b{font-weight:600}.user span{font-size:.78rem}
+.main{padding:42px 48px 76px;max-width:1240px}
+.hello{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.hello h2{font-size:clamp(2rem,4vw,2.7rem);font-weight:600;letter-spacing:-.05em}
+.hello p{color:var(--muted);margin-top:7px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:30px 0 34px}
+.stat{position:relative;min-width:0;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#fff,#fbfcff)}
+.stat b{display:block;font:600 2rem var(--head);letter-spacing:-.04em;margin:0 0 3px;color:#1d2a45}
+.stat span{font-size:.82rem;font-weight:600;color:#8791a4}
+.filters{gap:12px;margin-bottom:24px}
+.filters label{min-width:175px}
+.grid{grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:25px}
+.sec>h3{font-size:1.18rem;font-weight:600;margin-bottom:16px;letter-spacing:-.02em}
+.sec>h3 .seg{margin-left:auto!important}
+.composer{gap:14px;margin-bottom:17px;padding:19px;border-radius:16px;box-shadow:none;background:#fbfcff}
+.list{gap:11px}
+.item{gap:13px;padding:15px 16px;border:1px solid #e9edf4;border-radius:14px;background:#fff;transition:border-color .15s,transform .15s}
+.item:hover{border-color:#d5def5;transform:translateY(-1px)}
+.item.done{background:#fbfdfc}
+.dot{width:4px;border-radius:8px}
+.t{font-weight:600;color:#25314a;font-size:.94rem}
+.meta{gap:7px;margin-top:8px}
+.chip{border:0;background:#f2f5fa;border-radius:7px;padding:3px 9px;font-size:.73rem;font-weight:600;color:#778196}
+.due{font-size:.78rem;font-weight:600}
+.chk{width:25px;height:25px;border-radius:8px;background:#fff}
+.ann p{font-size:.88rem;line-height:1.6}
+.ann.imp{border-left:3px solid #efb443;background:#fffdf8}
+.empty{padding:30px 20px;background:#fbfcff;border:1px dashed #dce3ee;border-radius:14px;font-size:.9rem}
+.acts{gap:7px}
+.toast{background:#17233f;color:#fff;padding:11px 18px;border-radius:12px;box-shadow:0 8px 28px #17203330;font-size:.88rem}
+@media(max-width:900px){
+ .login{grid-template-columns:1fr;gap:22px;padding:22px 16px}
+ .login>div:first-child{min-height:0;padding:28px;border-radius:22px}
+ .login>div:first-child:after{height:145px;margin-top:22px}
+ .login h1{font-size:2.35rem;margin:20px 0 10px}
+ .login .card{max-width:none}
+ .shell{display:block}
+ .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:15px 16px;gap:12px}
+ .nav{margin:0;display:flex;gap:5px}
+ .nav button{padding:8px 10px;font-size:.82rem}
+ .user{padding:0;border:0;margin-left:auto}
+ .main{padding:28px 18px 55px}
+ .grid{grid-template-columns:1fr;gap:28px}
+}
+@media(max-width:520px){
+ .login>div:first-child:after{height:115px}
+ .stats{gap:9px;margin:22px 0 27px}
+ .stat{padding:13px 12px;border-radius:13px}
+ .stat b{font-size:1.65rem}
+ .stat span{font-size:.72rem}
+ .hello{display:block}
+ .main{padding:24px 14px 45px}
+ .side .logo{font-size:1.05rem}
+ .side .logo i{width:29px;height:29px}
+ .user b{font-size:.82rem}
+ .user .btn{padding:5px 8px}
+ .filters label{min-width:calc(50% - 8px);flex:1}
+ .item{padding:13px 12px;gap:10px}
+ .row>*{min-width:100%}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const CODE='AG233',K='classconnect_v2',SK='classconnect_session';
+const SUBJ={Math:'#4a5bf0',Science:'#168a5a',English:'#d1621c',History:'#8b5cf6'};
+const ROOMS=['7-A','7-B','8-A','8-B'];
+const day=n=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+n);return d.getTime()};
+let DB={students:[],done:{},assigns:[
+ {id:1,title:'Fractions worksheet, set 4',subject:'Math',room:'7-A',due:day(1)},
+ {id:2,title:'Plant cell diagram and labels',subject:'Science',room:'7-A',due:day(3)},
+ {id:3,title:'Mughal Empire timeline project',subject:'History',room:'8-A',due:day(6)}],
+ anns:[{id:1,title:'Welcome to ClassConnect',body:'Homework and school news will appear here. Check back every day.',room:'all',by:'Teacher',when:'Today',imp:true}]};
+try{const s=JSON.parse(localStorage.getItem(K)||'null');if(s)DB=s}catch(e){}
+let sess=null;try{sess=JSON.parse(localStorage.getItem(SK)||'null')}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(DB))}catch(e){}};
+const setSess=s=>{sess=s;try{s?localStorage.setItem(SK,JSON.stringify(s)):localStorage.removeItem(SK)}catch(e){}};
+let U={role:'student',err:'',view:'work',f:{subject:'all',room:'all'},tab:'open',reset:null,del:null};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1900)};
+async function hash(u,p){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(u+':'+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return btoa(u+':'+p)}}
+const fmt=ts=>{const d=Math.round((ts-day(0))/864e5);if(d<0)return{t:`Overdue by ${-d} day${d<-1?'s':''}`,c:'late'};if(d==0)return{t:'Due today',c:'late'};if(d==1)return{t:'Due tomorrow',c:''};return{t:'Due '+new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short'}),c:''}};
+const me=()=>DB.students.find(s=>s.u===sess.u);
+function login(){
+ const T=U.role==='teacher';
+ $('#app').innerHTML=`<div class="login"><div><div class="logo"><i></i>ClassConnect</div><h1>Homework and school news, in one calm place.</h1><p>Teachers add students and post work. Students and parents sign in to see it.</p></div>
+ <form class="card form" id="lf" autocomplete="off"><div class="seg" role="group" aria-label="Sign in as">${['student','parent','teacher'].map(r=>`<button type="button" data-r="${r}" aria-pressed="${U.role===r}">${r[0].toUpperCase()+r.slice(1)}</button>`).join('')}</div>
+ ${T?`<label>Teacher access code<input name="code" type="password" required placeholder="Enter your code"></label>`:`<label>Username<input name="u" required autocapitalize="none" placeholder="Given by your teacher"></label><label>Password<input name="p" type="password" required></label>${U.role==='parent'?'<span class="hint">Parents sign in with their child’s username and password.</span>':''}`}
+ <p class="err" role="alert">${U.err}</p><button class="btn main">Sign in</button></form></div>`;
+ $$('.seg button').forEach(b=>b.onclick=()=>{U.role=b.dataset.r;U.err='';login()});
+ $('#lf').onsubmit=async e=>{e.preventDefault();const d=new FormData(e.target);
+  if(T){if(d.get('code').trim().toUpperCase()!==CODE){U.err='That code is not correct.';return login()}setSess({role:'teacher'})}
+  else{const u=d.get('u').trim().toLowerCase(),s=DB.students.find(x=>x.u===u);
+   if(!s||s.h!==await hash(u,d.get('p'))){U.err='Username or password is not correct.';return login()}
+   setSess({role:U.role,u})}
+  U.err='';U.view='work';U.f={subject:'all',room:'all'};render()}}
+function render(){
+ if(!sess)return login();
+ const T=sess.role==='teacher',S=sess.role==='student',st=T?null:me();
+ if(!T&&!st){setSess(null);return login()}
+ const room=T?null:st.room,dn=new Set(T?[]:(DB.done[st.u]||[]));
+ const mine=DB.assigns.filter(a=>T||a.room===room),open=mine.filter(a=>!dn.has(a.id)),late=open.filter(a=>a.due<day(0));
+ const f=U.f,ok=a=>(f.subject==='all'||a.subject===f.subject)&&(!T||f.room==='all'||a.room===f.room)&&(T||a.room===room);
+ const list=DB.assigns.filter(ok).filter(a=>T?true:(U.tab==='done')===dn.has(a.id)).sort((a,b)=>a.due-b.due);
+ const an=DB.anns.filter(a=>T?(f.room==='all'||a.room==='all'||a.room===f.room):(a.room==='all'||a.room===room));
+ const opts=(arr,k,l)=>`<option value="all">All ${l}</option>${arr.map(o=>`<option ${f[k]===o?'selected':''}>${o}</option>`).join('')}`;
+ let main='';
+ if(T&&U.view==='students'){
+  main=`<div class="grid"><section class="sec"><h3>Students (${DB.students.length})</h3><div class="list">${DB.students.length?DB.students.map(s=>`<div class="item"><div class="body"><div class="t">${esc(s.name)}</div><div class="meta"><span class="chip">Class ${s.room}</span><span class="chip">Username: ${esc(s.u)}</span></div>
+  ${U.reset===s.u?`<form class="acts" data-rp="${s.u}" style="margin-top:10px"><input type="text" name="p" minlength="4" required placeholder="New password" aria-label="New password"><button class="btn sm">Save</button><button type="button" class="btn sm" data-x="reset">Cancel</button></form>`:`<div class="acts" style="margin-top:10px"><button class="btn sm" data-reset="${s.u}">Reset password</button><button class="btn sm danger" data-del="${s.u}">${U.del===s.u?'Confirm remove':'Remove'}</button></div>`}</div></div>`).join(''):'<div class="empty">No students yet. Add your first student using the form.</div>'}</div></section>
+  <section class="sec"><h3>Add a student</h3><form class="card composer" id="fs" autocomplete="off"><label>Full name<input name="name" required maxlength="40"></label><div class="row"><label>Classroom<select name="room">${ROOMS.map(r=>`<option>${r}</option>`)}</select></label><label>Username<input name="u" required pattern="[a-zA-Z0-9._]{3,20}" title="3–20 letters, numbers, dots or underscores" autocapitalize="none"></label></div><label>Password<input name="p" type="text" minlength="4" required></label><p class="err" id="se"></p><button class="btn main">Create student login</button><span class="hint">Share the username and password with the student. Passwords are stored scrambled and can’t be read later, only reset.</span></form></section></div>`}
+ else main=`<div class="filters"><label>Subject<select data-k="subject">${opts(Object.keys(SUBJ),'subject','subjects')}</select></label>${T?`<label>Classroom<select data-k="room">${opts(ROOMS,'room','classrooms')}</select></label>`:''}</div>
+ <div class="grid"><section class="sec"><h3>Assignments ${T?'':`<span class="seg" style="margin:0;padding:4px"><button data-t="open" aria-pressed="${U.tab==='open'}">Pending</button><button data-t="done" aria-pressed="${U.tab==='done'}">Done</button></span>`}</h3>
+ ${T?`<form class="card composer" id="fa"><label>Title<input name="title" required maxlength="80"></label><div class="row"><label>Subject<select name="subject">${Object.keys(SUBJ).map(s=>`<option>${s}</option>`)}</select></label><label>Classroom<select name="room">${ROOMS.map(s=>`<option>${s}</option>`)}</select></label><label>Due date<input type="date" name="due" required></label></div><button class="btn main">Add assignment</button></form>`:''}
+ <div class="list">${list.length?list.map(a=>{const d=fmt(a.due),x=dn.has(a.id);return`<div class="item ${x?'done':''}"><span class="dot" style="--c:${SUBJ[a.subject]}"></span>${S?`<button class="chk" role="checkbox" aria-checked="${x}" aria-label="Mark ${esc(a.title)} as ${x?'pending':'done'}" data-id="${a.id}">${x?'✓':''}</button>`:''}<div class="body"><div class="t">${esc(a.title)}</div><div class="meta"><span class="chip">${a.subject}</span><span class="chip">Class ${a.room}</span></div></div><div style="text-align:right"><span class="due ${x?'ok':d.c}">${x?'Submitted':d.t}</span>${T?`<br><button class="btn sm danger" data-da="${a.id}" style="margin-top:6px">Delete</button>`:''}</div></div>`}).join(''):`<div class="empty">${U.tab==='done'&&!T?'Nothing completed yet for these filters.':'No assignments match these filters.'}</div>`}</div></section>
+ <section class="sec"><h3>Announcements</h3>
+ ${T?`<form class="card composer" id="fn"><label>Headline<input name="title" required maxlength="80"></label><label>Message<textarea name="body" rows="2" required></textarea></label><div class="row"><label>Send to<select name="room"><option value="all">All students (every class)</option>${ROOMS.map(s=>`<option>${s}</option>`)}</select></label><label style="align-content:end;display:flex;gap:8px;align-items:center"><input type="checkbox" name="imp" style="width:20px;height:20px"> Mark important</label></div><button class="btn main">Post announcement</button></form>`:''}
+ <div class="list">${an.length?an.map(a=>`<article class="item ann ${a.imp?'imp':''}"><div class="body"><div class="t">${esc(a.title)}</div><p>${esc(a.body)}</p><div class="meta"><span class="chip">${a.room==='all'?'All students':'Class '+a.room}</span><small>${esc(a.by)} · ${a.when}</small>${T?`<button class="btn sm danger" data-dn="${a.id}">Delete</button>`:''}</div></div></article>`).join(''):'<div class="empty">No announcements yet.</div>'}</div></section></div>`;
+ $('#app').innerHTML=`<div class="shell"><aside class="side"><div class="logo"><i></i>ClassConnect</div><nav class="nav" aria-label="Main">${T?`<button data-v="work" aria-pressed="${U.view==='work'}">Classwork</button><button data-v="students" aria-pressed="${U.view==='students'}">Students</button>`:`<button data-v="work" aria-pressed="true">Dashboard</button>`}</nav><div class="user"><b>${T?'Teacher':esc(st.name)}</b><span>${T?'Signed in with access code':'Class '+st.room+(sess.role==='parent'?' · parent view':'')}</span><button class="btn sm" id="out">Log out</button></div></aside><main class="main">
+ <div class="hello"><h2>${T?'Your classrooms':sess.role==='parent'?esc(st.name.split(' ')[0])+'’s week':'Your week'}</h2><p>${T?'Add students, post work and share news.':open.length?`${open.length} pending, ${late.length} overdue.`:'Everything is submitted.'}</p></div>
+ ${T?`<div class="stats"><div class="stat"><b>${DB.students.length}</b><span>students</span></div><div class="stat"><b>${DB.assigns.length}</b><span>assignments</span></div><div class="stat"><b>${DB.anns.length}</b><span>announcements</span></div></div>`
+ :`<div class="stats"><div class="stat"><b>${open.length}</b><span>pending</span></div><div class="stat"><b>${mine.length-open.length}</b><span>completed</span></div><div class="stat"><b style="color:var(--late)">${late.length}</b><span>overdue</span></div></div>`}${main}</main></div>`;
+ $('#out').onclick=()=>{setSess(null);login()};
+ $$('[data-v]').forEach(b=>b.onclick=()=>{U.view=b.dataset.v;U.reset=U.del=null;render()});
+ $$('select[data-k]').forEach(s=>s.onchange=()=>{U.f[s.dataset.k]=s.value;render()});
+ $$('[data-t]').forEach(b=>b.onclick=()=>{U.tab=b.dataset.t;render()});
+ $$('.chk').forEach(b=>b.onclick=()=>{const id=+b.dataset.id,a=new Set(DB.done[st.u]||[]);a.has(id)?a.delete(id):a.add(id);DB.done[st.u]=[...a];save();render();toast(a.has(id)?'Marked as submitted':'Moved back to pending')});
+ $$('[data-da]').forEach(b=>b.onclick=()=>{DB.assigns=DB.assigns.filter(a=>a.id!=b.dataset.da);save();render();toast('Assignment deleted')});
+ $$('[data-dn]').forEach(b=>b.onclick=()=>{DB.anns=DB.anns.filter(a=>a.id!=b.dataset.dn);save();render();toast('Announcement deleted')});
+ $$('[data-reset]').forEach(b=>b.onclick=()=>{U.reset=b.dataset.reset;U.del=null;render()});
+ $$('[data-x]').forEach(b=>b.onclick=()=>{U.reset=null;render()});
+ $$('[data-del]').forEach(b=>b.onclick=()=>{const u=b.dataset.del;if(U.del===u){DB.students=DB.students.filter(s=>s.u!==u);delete DB.done[u];U.del=null;save();render();toast('Student removed')}else{U.del=u;render()}});
+ $$('[data-rp]').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const u=f.dataset.rp,s=DB.students.find(x=>x.u===u);s.h=await hash(u,new FormData(f).get('p'));U.reset=null;save();render();toast('Password updated')});
+ const fs=$('#fs');if(fs)fs.onsubmit=async e=>{e.preventDefault();const d=new FormData(fs),u=d.get('u').trim().toLowerCase();
+  if(DB.students.some(s=>s.u===u)){$('#se').textContent='That username is taken. Try another one.';return}
+  DB.students.push({u,name:d.get('name').trim(),room:d.get('room'),h:await hash(u,d.get('p'))});save();render();toast('Student added: '+u)};
+ const fa=$('#fa');if(fa)fa.onsubmit=e=>{e.preventDefault();const d=new FormData(fa);DB.assigns.push({id:Date.now(),title:d.get('title'),subject:d.get('subject'),room:d.get('room'),due:new Date(d.get('due')+'T00:00:00').getTime()});save();render();toast('Assignment added')};
+ const fn=$('#fn');if(fn)fn.onsubmit=e=>{e.preventDefault();const d=new FormData(fn);DB.anns.unshift({id:Date.now(),title:d.get('title'),body:d.get('body'),room:d.get('room'),by:'Teacher',when:'Just now',imp:!!d.get('imp')});save();render();toast('Announcement posted')}}
+render();
+</script>
+</body>
+</html>
